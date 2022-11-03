@@ -8,7 +8,7 @@ const App = () => {
  const [array, SetArray] = useState("");
 
   const search = (event) => {
-    console.log(event.target.value);
+//     console.log(event.target.value);
     SetArray(event.target.value);
   }
   
