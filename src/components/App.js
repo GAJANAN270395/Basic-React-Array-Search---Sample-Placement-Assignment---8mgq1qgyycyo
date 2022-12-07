@@ -3,39 +3,60 @@ import React,{useState} from 'react'
 import '../styles/App.css';
 
 
-const searchArray = ["Newton", "School", "Newton School", "React", "Preact", "Node", "Mongoose", "Angular", "Vue", "Apple", "Microsoft", "Netflix", "Meta"]
+const searchArray = [
+  "Newton",
+  "School",
+  "Newton School",
+  "React",
+  "Preact",
+  "Node",
+  "Mongoose",
+  "Angular",
+  "Vue",
+  "Apple",
+  "Microsoft",
+  "Netflix",
+  "Meta"
+];
 const App = () => {
- const [array, SetArray] = useState("");
+  //const [value, setValue] = useState('');
 
-  const search = (event) => {
-//     console.log(event.target.value);
-    SetArray(event.target.value);
-  }
-  
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <div id="main">
-      <h1>Search</h1>
-      <input type="text" id="search-input" onChange={search} />
-      <h1>Result</h1>
-      <ul>
-        {
-          searchArray.filter((item) => {
-            const searchValue = array.toLowerCase()
-            const arrayItem = item.toLowerCase()
+      <h4>Search</h4>
+      <div>
+        <input
+          type="text"
+          value={searchValue}
+          id="search-input"
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+      </div>
+      <div>
 
-            return (searchValue && item.includes(searchValue) && searchValue !== arrayItem)
+        <h4>Result</h4>
 
+        <ul>                    
+          {
+            searchArray.filter((item) =>{
+              return (
+                searchValue &&
+                item.match(new RegExp(searchValue, "i"))
+              );
+            })
+            .map((item) => {
+              return <li key={item}>{item} </li>
+            })
           }
-          )
-
-            .map((item, index) => (
-              <li key={index}>{item}</li>
-            ))
-        }
-      </ul>
+      
+        </ul>
+      </div>
     </div>
-  )
-}
-
+  );
+};
 
 export default App;
+
+// https://www.codingdeft.com/posts/react-filter/
